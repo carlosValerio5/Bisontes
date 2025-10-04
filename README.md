@@ -44,5 +44,5 @@ Carlos
 - https://www.linkedin.com/in/carlos-valerio-rios
 
 Eder
--https://www.linkedin.com/in/ederesquivelm
+- https://www.linkedin.com/in/ederesquivelm
 
