@@ -38,6 +38,7 @@ Monterrey is located in a zone with predominantly dry and semi-dry climate, in t
 - Eder Abisai Esquivel Maldonado
 - Mayela Mayte Lopez Cerino
 - Luis Daniel Ruiz Dorador
+- Daniela Leal Hernandez
 
 ### Our Socials
 Carlos
