@@ -5,6 +5,8 @@ import folium
 from streamlit_folium import st_folium
 import unicodedata
 from folium.plugins import HeatMap
+from pathlib import Path
+from prueba1 import clean_headers, ensure_municipio_col, lollipop, read_csv_safe
 
 sources = {
     "Fuentes fijas": "fixed_sources",
@@ -13,6 +15,25 @@ sources = {
     "Fuentes de área": "area_sources",
     "Fuentes moviles que no circulan por carretera": "non_road_mobile_sources",
 }
+
+# -----------------------------
+# Paths
+# -----------------------------
+DATA = Path("data")
+ELEC       = DATA / "top10_electricidad.csv"   # esperado: Municipio, pct_sin_electricidad
+SALUD_MIN  = DATA / "salud_menores.csv"        # esperado: Municipio, Total, TVIVHAB (opcional)
+SALUD_MAX  = DATA / "salud_mayores.csv"        # esperado: Municipio, Total, TVIVHAB (opcional)
+ELEC_MUNI  = DATA / "elec_muni.csv"            # esperado: NOM_MUN/Municipio, TVIVHAB, VPH_S_ELEC
+VIV_MIN    = DATA / "menos_viv.csv"            # esperado: Municipio, TVIVHAB
+
+# -----------------------------
+# Load data
+# -----------------------------
+elec        = read_csv_safe(ELEC)
+men         = read_csv_safe(SALUD_MIN)
+mas         = read_csv_safe(SALUD_MAX)
+elec_muni   = read_csv_safe(ELEC_MUNI)
+min_viv_df  = read_csv_safe(VIV_MIN)
 
 # Helper to normalize names
 def normalize(s):
@@ -68,7 +89,7 @@ show_green = st.sidebar.checkbox("Show Green Areas", value=False)
 default_center = [merged.geometry.centroid.y.mean(), merged.geometry.centroid.x.mean()]
 default_zoom = 7
 
-tab_map, tab_pollution = st.tabs(["Map", "Pollution"])
+tab_map, tab_pollution, tab_electricity, tab_health, tab_housing = st.tabs(["Map", "Pollution", "Electricity", "Health", "Housing"])
 
 with tab_map:
     # Create base map centered on state or selected municipality; use default_center to avoid empty maps
@@ -362,3 +383,73 @@ with tab_pollution:
             st_folium(p_map, width=1000, height=700)
 
     
+with tab_electricity:
+    if elec is None:
+        st.error(f"Falta `{ELEC.as_posix()}`.")
+    else:
+        elec = clean_headers(elec)
+        # Estándar esperado: Municipio + pct_sin_electricidad
+        elec = ensure_municipio_col(elec)
+        if "pct_sin_electricidad" not in elec.columns:
+            st.error("`pct_sin_electricidad` no está en top10_electricidad.csv")
+        elif "Municipio" not in elec.columns:
+            st.error("No se encontró columna de municipio (Municipio/NOM_MUN).")
+        else:
+            st.subheader("Top 10: % Housing without electricity")
+            st.dataframe(elec[["Municipio", "pct_sin_electricidad"]])
+            ch = lollipop(
+                elec,
+                "Municipio",
+                "pct_sin_electricidad",
+                title="Top 10: % without electricity",
+                fmt=".2f"
+            )
+            st.altair_chart(ch, use_container_width=True)
+
+with tab_health:
+    if men is None or mas is None:
+        st.error(f"Faltan `{SALUD_MIN.as_posix()}` y/o `{SALUD_MAX.as_posix()}`.")
+    else:
+        men = ensure_municipio_col(men)
+        mas = ensure_municipio_col(mas)
+
+        if not {"Municipio", "Total"}.issubset(men.columns) or not {"Municipio", "Total"}.issubset(mas.columns):
+            st.error("Las tablas de salud deben tener columnas 'Municipio' y 'Total'.")
+        else:
+            st.subheader("Top 5: Health Centers")
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown("**Bottom 5**")
+                st.dataframe(men[["Municipio", "Total"]])
+                st.altair_chart(
+                    lollipop(men, "Municipio", "Total", "Bottom 5", fmt="d"),
+                    use_container_width=True
+                )
+            with c2:
+                st.markdown("**Top 5**")
+                st.dataframe(mas[["Municipio", "Total"]])
+                st.altair_chart(
+                    lollipop(mas, "Municipio", "Total", "Top 5", fmt="d"),
+                    use_container_width=True
+                )
+
+with tab_housing:
+    if min_viv_df is None:
+        st.error(f"Falta `{VIV_MIN.as_posix()}`.")
+    else:
+        d = ensure_municipio_col(min_viv_df)
+        if "TVIVHAB" not in d.columns:
+            st.error(f"`{VIV_MIN.name}` debe tener 'TVIVHAB'. Columnas: {list(d.columns)}")
+        else:
+            d = d.rename(columns={"TVIVHAB": "Ocupied_Housing"})
+            st.subheader("Top 5: Municipality with less housing")
+            st.dataframe(d[["Municipio", "Ocupied_Housing"]])
+            ch = lollipop(
+                d,
+                "Municipio",
+                "Ocupied_Housing",
+                title="Top 5: Municipalities with less housing",
+                fmt="d",
+            )
+            st.altair_chart(ch, use_container_width=True)
+
