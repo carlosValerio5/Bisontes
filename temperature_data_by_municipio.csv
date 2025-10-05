@@ -1,0 +1,26 @@
+Lon,Lat,Clave,Edo,Est,Tmax,geometry,index_right,NAME_2
+-99.82,24.1,ARRNL,NL,Aramberri N.L.,32.1,POINT (-99.82 24.1),5.0,Aramberri
+-99.7,24.78,CRUNL,NL,Crucitas N.L.,35.4,POINT (-99.7 24.78),30.0,Linares
+-100.08,24.83,GALNL,NL,Galeana N.L.,29.5,POINT (-100.08 24.83),15.0,Galeana
+-99.58,24.87,CAMNL,NL,Camacho N.L.,36.2,POINT (-99.58 24.87),30.0,Linares
+-99.4,24.94,CPRNL,NL,José López Portillo N.L.,33.9,POINT (-99.4 24.94),30.0,Linares
+-99.74,24.99,CABNL,NL,Cabezones N.L.,34.3,POINT (-99.74 24.99),38.0,Montemorelos
+-99.22,24.99,PAMNL,NL,La Pamona N.L.,38.7,POINT (-99.22 24.99),30.0,Linares
+-100.55,25.03,SRANL,NL,San Rafael N.L.,28.2,POINT (-100.55 25.03),15.0,Galeana
+-99.83,25.17,MTMNL,NL,Montemorelos N.L.,35.4,POINT (-99.83 25.17),38.0,Montemorelos
+-100.2,25.52,ECSNL,NL,El Cerrito N.L.,34.2,POINT (-100.2 25.52),39.0,Monterrey
+-100.27,25.68,MTRNL,NL,Monterrey N.L.,35.7,POINT (-100.27 25.68),23.0,Guadalupe
+-99.61,26.09,CRVNL,NL,Cerralvo N.L.,36.8,POINT (-99.61 26.09),8.0,Cerralvo
+-100.12,23.42,MYNNL,NL,Mier y Noriega N.L.,29.7,POINT (-100.12 23.42),36.0,Mier y Noriega
+-100.31,25.58,ELDIENTE,NL,El Diente N. L. SMN*,33.2,POINT (-100.31 25.58),39.0,Monterrey
+-100.13,25.43,LBCNL,NL,Rodrigo Gómez N.L.,35.8,POINT (-100.13 25.43),48.0,Santiago
+-99.28,25.71,CCHNL,NL,Cuchillo Solidaridad N.L.,36.0,POINT (-99.28 25.71),9.0,China
+-100.3,25.73,OBSNL,NL,Observatorio de Monterrey N.L.,36.4,POINT (-100.3 25.73),45.0,San Nicolás de los Garza
+-100.11,25.78,MMMY,NL,Aeropuerto Internacional de Monterrey N.L.*,34.8,POINT (-100.11 25.78),4.0,Apodaca
+-100.24,25.86,MMAN,NL,Aeropuerto Internacional del Norte N.L.*,34.5,POINT (-100.24 25.86),22.0,General Zuazua
+-99.32,25.73,PCUNL,NL,Presa el Cuchillo N.L. SMN*,36.1,POINT (-99.32 25.73),9.0,China
+-100.24,25.86,RADIOSONDEOMTY,NL,Radiosondeo Monterrey N.L. SGT*,34.7,POINT (-100.24 25.86),22.0,General Zuazua
+-99.75,27.7,COLOMBIA,NL,Colombia N.L. SGT*,36.1,POINT (-99.75 27.7),3.0,Anáhuac
+-99.27,25.66,CPPRODRIGOGmar,NL,Capitanía de Puerto de Presa Rodrigo Gómez N. L. SEMAR*,35.6,POINT (-99.27 25.66),9.0,China
+-99.53,25.5,LERNL,NL,Las Enramadas N.L.,37.1,POINT (-99.53 25.5),33.0,Los Ramones
+-100.3,25.73,MONTERREYob,NL,Observatorio de Monterrey N.L. SMN*,37.3,POINT (-100.3 25.73),45.0,San Nicolás de los Garza
