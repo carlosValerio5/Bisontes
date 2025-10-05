@@ -6,6 +6,14 @@ from streamlit_folium import st_folium
 import unicodedata
 from folium.plugins import HeatMap
 
+sources = {
+    "Fuentes fijas": "fixed_sources",
+    "Fuentes móviles": "mobile_sources",
+    "Fuentes naturales": "natural_sources",
+    "Fuentes de área": "area_sources",
+    "Fuentes moviles que no circulan por carretera": "non_road_mobile_sources",
+}
+
 # Helper to normalize names
 def normalize(s):
     if pd.isna(s):
@@ -260,13 +268,13 @@ with tab_pollution:
     pollutant = st.selectbox("Select pollutant", pollutants, index=0)
 
     # source type filter (Tipo_de_Fuente)
-    types = aire["Tipo_de_Fuente"].dropna().unique().tolist()
+    types = sources
     # default to no selection so user must choose which source types to display
-    types_selected = st.multiselect("Tipo_de_Fuente (source types)", options=types, default=[])
+    types_selected = st.multiselect("(source types)", options=types.values(), default=[])
 
     # If the user deselects all types, show a message and a base map instead of failing silently
     if not types_selected:
-        st.warning("No source types selected. Please pick at least one Tipo_de_Fuente to see pollution layers.")
+        st.warning("No source types selected. Please pick at least one source type to see pollution layers.")
         p_map = folium.Map(location=default_center, zoom_start=default_zoom, tiles="CartoDB positron")
         folium.LayerControl().add_to(p_map)
         st_folium(p_map, width=1000, height=700)
@@ -274,7 +282,7 @@ with tab_pollution:
     else:
         try:
             # aggregate by municipality and source type
-            aire_filtered = aire[aire["Tipo_de_Fuente"].isin(types_selected)].copy()
+            aire_filtered = aire[aire["Tipo_de_Fuente"].isin(types.keys())].copy()
             aire_filtered[pollutant] = pd.to_numeric(aire_filtered[pollutant], errors="coerce")
             agg = aire_filtered.groupby(["_mun_norm", "Tipo_de_Fuente"])[pollutant].sum().reset_index()
 
