@@ -24,13 +24,16 @@ Monterrey is located in a zone with predominantly dry and semi-dry climate, in t
 ## Stack
 ### Backend
 - Python
-- FastApi
 ### Frontend
-- React
-- Tailwindcss
-### Cloud
-- AWS
+- Streamlit
 
+## File Structure
+- scripts
+|   Files for data manipulation and csv file generation.
+- app
+|   Streamlit app.
+
+## Overview
 
 ## Team
 - Carlos Manuel Valerio Rios
