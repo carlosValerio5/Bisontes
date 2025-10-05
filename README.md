@@ -21,6 +21,19 @@ Monterrey is located in a zone with predominantly dry and semi-dry climate, in t
 - Sustainable mobility, decreasing CO2 emissions.
 - Inclusive transport, etc...
 
+## Setup
+Install all the dependencies. Run:
+```
+pip install -r requirements.txt
+```
+
+From the project root (Bisontes/) run the following command.
+```
+python -m streamlit run ./app/streamlit_map.py
+```
+The server should launch and expose the port 8502.
+Use you'r favourite browser to access the app.
+
 ## Stack
 ### Backend
 - Python
